@@ -28,13 +28,13 @@ class App extends Component {
     }
 
     logoutUser(){
-        firebase.auth().signOut();
+       
     }
     renderContent(){
         if(this.state.loggedIn){
             return(
                 <CardItem>
-                    <Button onPress={this.logoutUser()}
+                    <Button onPress={() =>  firebase.auth().signOut() }
                     > Log Out </Button>
                 </CardItem>
             );
