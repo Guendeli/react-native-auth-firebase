@@ -16,12 +16,7 @@ class LoginForm extends Component
         // Attempt to sign in
         firebase.auth().signInWithEmailAndPassword(email, password)
         .then(this.onLoginSucess.bind(this))
-        .catch(() => {
-            //in case of error, let's just create an account, for the sake of learning
-            firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then(this.onLoginSucess.bind(this))
-            .catch(this.onLoginFail.bind(this));
-        });
+        .catch(this.registerUser.bind(this, email, password));
     }
 
     onLoginSucess(){
@@ -39,6 +34,13 @@ class LoginForm extends Component
             error: "Authentification Failed.",
             loading: false
         });
+    }
+
+    registerUser(v_email, v_password){
+        //in case of error, let's just create an account, for the sake of learning
+        firebase.auth().createUserWithEmailAndPassword(v_email, v_password)
+        .then(this.onLoginSucess.bind(this))
+        .catch(this.onLoginFail.bind(this));
     }
 
     renderButton()
